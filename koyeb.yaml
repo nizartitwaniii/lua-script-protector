@@ -1,0 +1,26 @@
+name: lua-script-protector
+
+services:
+  - name: lua-script-protector
+    type: web
+    build:
+      type: docker
+      dockerfile: Dockerfile
+    instance_type: nano
+    env:
+      - name: NODE_ENV
+        value: production
+      - name: PORT
+        value: "5000"
+    regions:
+      - fra
+    scaling:
+      min: 1
+      max: 1
+    ports:
+      - port: 5000
+        protocol: http
+    health_check:
+      http:
+        path: /
+        port: 5000
